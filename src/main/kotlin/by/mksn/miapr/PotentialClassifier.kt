@@ -57,18 +57,18 @@ fun generateDecisionFunction(trainSet: List<Point>,
 ): GeneratedFunctions {
     var potentialCoefficients = initialPotentialCoefficients
     var normalizationCoefficient = 1.0
-    for (i in 0..(trainSet.size-1)) {
+    for (i in 0..(trainSet.size - 2)) {
         val localPotentialCoefficients = ERMIT_COEFFICIENTS.substitutePoint(trainSet[i])
         potentialCoefficients += (localPotentialCoefficients * normalizationCoefficient)
-        val potentialValue = potentialCoefficients.getPotentialFunction()(trainSet[i])
-        normalizationCoefficient = getNormalizationCoefficient(potentialValue, trainSet[i].classIndex)
-        println("Potential function on iteration $i: $potentialCoefficients")
+        val potentialValue = potentialCoefficients.getPotentialFunction()(trainSet[i + 1])
+        normalizationCoefficient = getNormalizationCoefficient(potentialValue, trainSet[i + 1].classIndex)
     }
+    println("Potential function: $potentialCoefficients")
     return GeneratedFunctions({ (x, y) ->
         val potentialValue = potentialCoefficients.first +
                 potentialCoefficients.second * x +
                 potentialCoefficients.third * y +
-                potentialCoefficients.first * x * y
+                potentialCoefficients.fourth * x * y
         if (potentialValue <= 0) {
             Point(x, y, 2)
         } else {

@@ -10,7 +10,7 @@ import org.jfree.data.xy.XYSeriesCollection
 import java.awt.BasicStroke
 import java.io.File
 
-fun draw(points: List<Point>, xRange: Range, yRange: Range, chartFunction: ChartFunction) {
+fun draw(points: List<Point>, xRange: Range, yRange: Range, chartFunction: ChartFunction, index: Int) {
     val dataset = XYSeriesCollection()
     val series1 = XYSeries("Class 1 points")
     val series2 = XYSeries("Class 2 points")
@@ -43,6 +43,6 @@ fun draw(points: List<Point>, xRange: Range, yRange: Range, chartFunction: Chart
     renderer.setSeriesLinesVisible(1, false)
     renderer.setSeriesShapesVisible(1, true)
     renderer.setSeriesStroke(2, BasicStroke(2F))
-    ChartUtilities.saveChartAsPNG(File("classification-chart.jpg"), chart, 1000, 1000)
+    ChartUtilities.saveChartAsPNG(File("classification-chart-$index.jpg"), chart, 1000, 1000)
 }
 
